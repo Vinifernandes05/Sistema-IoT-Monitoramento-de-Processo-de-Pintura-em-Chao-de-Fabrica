@@ -1,251 +1,211 @@
-# 🏭 Sistema IoT para Monitoramento de Processo de Pintura em Chão de Fábrica
+# Sistema IoT de Monitoramento de Pintura de Blocos de Madeira
 
-## 📌 Sobre o Projeto
+Projeto desenvolvido no **SENAI CiMATEC** para a disciplina de Práticas Integradas – Camada de Serviço (AV2).
 
-Este projeto foi desenvolvido na disciplina de **Práticas Integradas: Camada de Serviço**, com o objetivo de simular um sistema de monitoramento de um processo de pintura em ambiente industrial utilizando dispositivos IoT.
-
-A solução utiliza dois microcontroladores ESP32 comunicando-se via **ESPNOW**, permitindo a coleta, transmissão, armazenamento e visualização de dados em tempo real.
-
-O sistema monitora variáveis importantes do processo de pintura, como nível do tanque de tinta, temperatura, umidade, luminosidade e presença de operadores próximos à área de trabalho.
+Sistema IoT que monitora o processo de pintura de blocos de madeira em um ambiente simulado de chão de fábrica, utilizando dois ESP32 que se comunicam via **ESP-NOW**, com dados armazenados no **Supabase** e visualizados em dashboard em tempo real.
 
 ---
 
-## 🎯 Objetivos
+## Estrutura do Repositório
 
-- Implementar comunicação sem fio utilizando ESPNOW.
-- Realizar aquisição de dados através de sensores.
-- Desenvolver um backend para armazenamento das leituras.
-- Persistir informações em banco de dados.
-- Criar dashboards para monitoramento em tempo real.
-- Aplicar conceitos de IoT, APIs REST, Banco de Dados e Visualização de Dados.
-
----
-
-## 🛠️ Tecnologias Utilizadas
-
-### Hardware
-
-- ESP32 (Chão de Fábrica)
-- ESP32 (Monitoramento)
-- Sensor Ultrassônico HC-SR04
-- Sensor DHT11/DHT22
-- Sensor PIR
-- Fotorresistor (LDR)
-- LEDs de Status
-- Matriz de LEDs
-
-### Software
-
-- Arduino IDE
-- ESPNOW
-- Node.js
-- Express.js
-- Supabase
-- Grafana
-- Git
-- GitHub
-
----
-
-## 🏗️ Arquitetura do Sistema
-
-```text
-ESP32 Chão de Fábrica
-        │
-        ▼
-      ESPNOW
-        │
-        ▼
-ESP32 Monitoramento
-        │
-        ▼
-    API REST
-(Node.js + Express)
-        │
-        ▼
-     Supabase
-(PostgreSQL)
-        │
-        ▼
-      Grafana
 ```
-
----
-
-## 📡 ESP32 Chão de Fábrica
-
-Responsável pela coleta dos dados dos sensores instalados no ambiente industrial.
-
-### Sensores Utilizados
-
-- Sensor Ultrassônico → Nível do tanque de tinta.
-- Sensor DHT → Temperatura e umidade.
-- Fotorresistor (LDR) → Luminosidade do ambiente.
-- Sensor PIR → Detecção de presença.
-
-### Funcionalidades
-
-- Leitura contínua dos sensores.
-- Acionamento de LEDs de status.
-- Monitoramento do nível do tanque.
-- Envio periódico dos dados via ESPNOW.
-
-### Dados Enviados
-
-- Nível do tanque (%)
-- Temperatura (°C)
-- Umidade (%)
-- Luminosidade
-- Presença
-- Timestamp
-
----
-
-## 🖥️ ESP32 de Monitoramento
-
-Responsável por receber os dados enviados pelo ESP32 principal.
-
-### Funcionalidades
-
-- Recepção de dados via ESPNOW.
-- Exibição dos dados na matriz de LEDs.
-- Indicação visual de falhas de comunicação.
-- Encaminhamento das informações para o backend.
-
----
-
-## 🗄️ Banco de Dados
-
-O projeto utiliza o Supabase para armazenamento das leituras coletadas pelos sensores.
-
-### Estrutura da Tabela
-
-```sql
-CREATE TABLE leituras (
-    id BIGSERIAL PRIMARY KEY,
-    timestamp TIMESTAMPTZ DEFAULT NOW(),
-    nivel NUMERIC,
-    temperatura NUMERIC,
-    umidade NUMERIC,
-    luminosidade NUMERIC,
-    presenca BOOLEAN
-);
-```
-
----
-
-## 🚀 Backend
-
-O backend foi desenvolvido utilizando Node.js e Express.
-
-### Funcionalidades
-
-- Receber dados enviados pelo ESP32.
-- Validar informações recebidas.
-- Armazenar leituras no banco de dados.
-- Disponibilizar API REST para integração.
-
-### Endpoint
-
-```http
-POST /dados
-```
-
-### Exemplo de Requisição
-
-```json
-{
-  "nivel": 80,
-  "temperatura": 25,
-  "umidade": 60,
-  "luminosidade": 400,
-  "presenca": true
-}
-```
-
----
-
-## ▶️ Como Executar o Backend
-
-### Instalar Dependências
-
-```bash
-npm install
-```
-
-### Executar o Servidor
-
-```bash
-node backend.js
-```
-
-Saída esperada:
-
-```text
-Servidor rodando na porta 3001
-```
-
----
-
-## 📊 Dashboard Grafana
-
-O Grafana é utilizado para visualização dos dados armazenados no banco.
-
-### Indicadores Monitorados
-
-- 📦 Nível do tanque de tinta
-- 🌡️ Temperatura
-- 💧 Umidade
-- 💡 Luminosidade
-- 👤 Presença
-
-### Recursos
-
-- Atualização automática.
-- Histórico das leituras.
-- Monitoramento em tempo real.
-- Visualização gráfica dos indicadores.
-
----
-
-## 📂 Estrutura do Projeto
-
-```text
-chao-de-fabrica/
-│
-├── Backend/
-│   ├── backend.js
-│   ├── package.json
-│   └── node_modules/
-│
-├── ESP32_ChaoDeFabrica/
-│   └── codigo.ino
-│
-├── ESP32_Monitoramento/
-│   └── codigo.ino
-│
+iot-sistema-pintura/
+├── chao_de_fabrica/
+│   └── chao_de_fabrica.ino      # Firmware ESP32-S3 (sensores + envio ESP-NOW)
+├── monitoramento/
+│   └── monitoramento.ino        # Firmware ESP32-WROOM-32 (recepção + Supabase)
+├── banco_de_dados/
+│   └── criar_tabela.sql         # SQL para criar tabela no Supabase
+├── docs/
+│   ├── montagem.md              # Guia de montagem dos circuitos
+│   └── supabase.md              # Configuração do banco de dados
 └── README.md
 ```
 
 ---
 
-## 📚 Conceitos Aplicados
+## 🏗️ Arquitetura do Sistema
 
-- Internet das Coisas (IoT)
-- Comunicação ESPNOW
-- Sistemas Embarcados
-- APIs REST
-- Banco de Dados em Nuvem
-- Monitoramento Industrial
-- Visualização de Dados
-- Versionamento com Git e GitHub
+```
+[Sensores] ──► [ESP32-S3 Chão de Fábrica]
+                        │
+                    ESP-NOW
+                        │
+               [ESP32-WROOM-32 Monitoramento]
+                        │
+                  HTTPS / REST
+                        │
+                   [Supabase]
+                        │
+                  [Dashboard Lovable]
+```
 
 ---
 
-## 👨‍💻 Autores
+## Componentes
 
-**Vinicius Fernandes**
-**Rafael Guerra**
-**Lucca Badaró**
+### ESP32-S3-WROOM-1 — Chão de Fábrica
 
-Estudantes de Engenharia da Computação.
+| Componente | Pino | Função |
+|---|---|---|
+| HC-SR04 TRIG | GPIO 10 | Pulso de disparo do ultrassônico |
+| HC-SR04 ECHO | GPIO 9 | Recepção do eco (usar divisor de tensão se 5V) |
+| DHT22 DATA | GPIO 16 | Temperatura e umidade |
+| LDR | GPIO 7 | Luminosidade (ADC1_CH6) |
+| PIR OUT | GPIO 13 | Detecção de presença |
+| LED Verde | GPIO 2 | Operação normal |
+| LED Vermelho | GPIO 4 | Alerta (nível < 20%) |
+
+### ESP32-WROOM-32 — Monitoramento
+
+| Componente | Pino | Função |
+|---|---|---|
+| LED Verde | GPIO 2 | Comunicação ESP-NOW OK |
+| LED Vermelho | GPIO 4 | Timeout (sem dados por 5 s) |
+
+---
+
+## Como Montar o Projeto
+
+Consulte o guia completo em [`docs/montagem.md`](docs/montagem.md).
+
+**Resumo:**
+1. Monte o circuito do chão de fábrica conforme a tabela de pinos acima
+2. Ligação do LDR: `3.3V ──[LDR]── GPIO7 ──[10kΩ]── GND`
+3. PIR: VCC no 5V, GND no GND, OUT no GPIO 13
+4. HC-SR04: se o módulo for 5V, use divisor de tensão no pino ECHO
+5. Monte o circuito do monitoramento (apenas dois LEDs)
+
+---
+
+## Como Gravar os Firmwares
+
+### Pré-requisitos
+
+- Arduino IDE 2.x
+- Pacote ESP32 da Espressif (versão ≥ 3.x)
+
+### Bibliotecas (instalar pelo Library Manager)
+
+| Biblioteca | Autor | Para qual ESP32 |
+|---|---|---|
+| DHT sensor library for ESPx | beegee-tokyo | Chão de fábrica |
+
+### Configurações da Board
+
+**Chão de fábrica (ESP32-S3-WROOM-1):**
+- Board: `ESP32S3 Dev Module`
+- Flash Size: `16MB`
+- USB CDC On Boot: `Disabled`
+
+**Monitoramento (ESP32-WROOM-32):**
+- Board: `ESP32-WROOM-DA Module` ou `ESP32 Dev Module`
+- Upload Speed: `921600`
+
+### Ordem de gravação
+
+1. Grave `monitoramento.ino` no ESP32-WROOM-32
+2. Abra o Monitor Serial (115200) → copie o MAC exibido em `[WiFi] MAC deste ESP32: XX:XX:XX:XX:XX:XX`
+3. Cole esse MAC no campo `MAC_MONITORAMENTO` em `chao_de_fabrica.ino`
+4. Grave `chao_de_fabrica.ino` no ESP32-S3
+
+### Variáveis a preencher antes de gravar
+
+**`chao_de_fabrica.ino`:**
+```cpp
+const char* WIFI_SSID = "SEU_WIFI";
+const char* WIFI_PASS = "SUA_SENHA";
+uint8_t MAC_MONITORAMENTO[6] = {0xXX, 0xXX, 0xXX, 0xXX, 0xXX, 0xXX};
+```
+
+**`monitoramento.ino`:**
+```cpp
+const char* WIFI_SSID    = "SEU_WIFI";
+const char* WIFI_PASS    = "SUA_SENHA";
+const char* SUPABASE_URL = "https://SEU_PROJETO.supabase.co/rest/v1/leituras";
+const char* SUPABASE_KEY = "SUA_ANON_KEY";
+```
+
+---
+
+## Como Configurar o Banco de Dados
+
+Consulte o guia completo em [`docs/supabase.md`](docs/supabase.md).
+
+**Resumo:**
+1. Crie um projeto em [supabase.com](https://supabase.com)
+2. Acesse **SQL Editor → New Query**
+3. Cole e execute o conteúdo de `banco_de_dados/criar_tabela.sql`
+4. Em **Settings → API**, copie a Project URL e a anon key
+
+---
+
+## Como Consultar os Dados Salvos
+
+**Via Supabase Table Editor:**
+- Acesse seu projeto → **Table Editor → leituras**
+
+**Via SQL (Supabase SQL Editor):**
+```sql
+-- Últimas 20 leituras
+SELECT * FROM leituras ORDER BY criado_em DESC LIMIT 20;
+
+-- Média de temperatura das últimas 24h
+SELECT AVG(temperatura) FROM leituras
+WHERE criado_em > NOW() - INTERVAL '24 hours';
+
+-- Alertas de nível baixo
+SELECT * FROM leituras
+WHERE nivel_tinta < 20
+ORDER BY criado_em DESC;
+```
+
+**Via API REST:**
+```bash
+curl "https://SEU_PROJETO.supabase.co/rest/v1/leituras?order=criado_em.desc&limit=10" \
+  -H "apikey: SUA_ANON_KEY"
+```
+
+**Via Dashboard:**
+- Acesse o dashboard criado no Lovable para visualização em tempo real
+
+---
+
+## Estrutura do Pacote ESP-NOW
+
+Enviado a cada 2 segundos do chão de fábrica para o monitoramento:
+
+```cpp
+typedef struct {
+  float   nivel_tinta;      // % do tanque (0–100)
+  float   temperatura;      // °C
+  float   umidade;          // %
+  int32_t luminosidade;     // ADC 0–4095
+  uint8_t presenca;         // 0 = ausente, 1 = detectada
+  char    timestamp[24];    // "HH:MM:SS" relativo ao boot
+} DadosSensores;
+```
+
+---
+
+## Avaliação
+
+| Etapa | Descrição | Pontos |
+|---|---|---|
+| 01 | ESP32 Chão de Fábrica | 2,0 |
+| 02 | ESP32 Monitoramento | 2,0 |
+| 03 | Banco de Dados e Dashboard | 2,0 |
+| 04 | GitHub | 2,0 |
+| 05 | Apresentação oral | 2,0 |
+| | **Total** | **10,0** |
+
+---
+
+## Referências
+
+- [Arduino IDE](https://www.arduino.cc/en/software)
+- [Espressif ESP32 Technical Reference](https://www.espressif.com/en/products/socs/esp32-s3)
+- [Supabase Documentation](https://supabase.com/docs)
+- [Random Nerd Tutorials – ESP-NOW](https://randomnerdtutorials.com/esp-now-esp32-arduino-ide/)
+
+---
