@@ -1,2 +1,24 @@
-node_modules
-.env
+# Arduino IDE
+*.elf
+*.bin
+*.hex
+*.map
+build/
+.arduino15/
+ 
+# Credenciais (nunca suba ao GitHub)
+secrets.h
+credentials.h
+config_private.h
+ 
+# Sistema operacional
+.DS_Store
+Thumbs.db
+desktop.ini
+ 
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+ 
