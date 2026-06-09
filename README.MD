@@ -167,7 +167,7 @@ curl "https://SEU_PROJETO.supabase.co/rest/v1/leituras?order=criado_em.desc&limi
 ```
 
 **Via Dashboard:**
-- Acesse o dashboard criado no Lovable para visualização em tempo real
+- Acesse o dashboard criado no Lovable para visualização em tempo real: https://readings-radiant-view.lovable.app/
 
 ---
 
