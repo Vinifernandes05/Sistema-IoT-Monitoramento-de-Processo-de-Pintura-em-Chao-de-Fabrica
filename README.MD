@@ -135,21 +135,17 @@ Dashboard Web
 ## 📂 Estrutura do Projeto
 
 ```text
-iot-sistema-pintura/
-├── chao_de_fabrica/
-│   └── chao_de_fabrica.ino      # Firmware ESP32-S3 (Sensores + ESP-NOW)
+Sistema-IoT-Monitoramento/
 │
-├── monitoramento/
-│   └── monitoramento.ino        # Firmware ESP32-WROOM-32 (Recepção + Supabase)
+├── Backend/
+│   ├── package.json             # Dependências do backend
+│   └── package-lock.json        # Controle de versões das dependências
 │
-├── banco_de_dados/
-│   └── criar_tabela.sql         # Script SQL para criação da tabela
-│
-├── docs/
-│   ├── montagem.md              # Guia de montagem dos circuitos
-│   └── supabase.md              # Configuração do banco de dados
-│
-└── README.md
+├── .gitignore                   # Arquivos ignorados pelo Git
+├── README.md                    # Documentação do projeto
+├── chao_de_fabrica.ino          # Firmware do ESP32-S3 (Coleta dos sensores e envio via ESP-NOW)
+├── monitoramento.ino            # Firmware do ESP32-WROOM-32 (Recepção dos dados e integração com Supabase)
+└── criar_tabela.sql             # Script SQL para criação da tabela no Supabase
 ```
 
 ---
