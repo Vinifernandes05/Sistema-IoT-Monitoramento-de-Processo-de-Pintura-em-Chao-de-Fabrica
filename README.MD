@@ -111,7 +111,7 @@ Além do desenvolvimento dos firmwares embarcados, o projeto contempla documenta
 ## 🏗️ Arquitetura do Sistema
 
 ```text
-[Sensores]
+   Sensores
       │
       ▼
 ESP32-S3 (Chão de Fábrica)
@@ -121,7 +121,7 @@ ESP32-S3 (Chão de Fábrica)
       ▼
 ESP32-WROOM-32 (Monitoramento)
       │
- HTTPS / REST API
+HTTPS / REST API
       │
       ▼
    Supabase
