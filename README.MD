@@ -16,8 +16,7 @@ Os dados são enviados para o **Supabase**, onde permanecem armazenados para con
 
 Além do desenvolvimento dos firmwares embarcados, o projeto contempla documentação técnica completa, banco de dados, arquitetura do sistema e organização do código utilizando Git e GitHub.
 
-🔗 **Dashboard do Projeto:**  
-https://readings-radiant-view.lovable.app/
+🔗 **Dashboard do Projeto:** https://readings-radiant-view.lovable.app/
 
 ---
 
