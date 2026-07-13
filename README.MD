@@ -177,10 +177,10 @@ Sistema-IoT-Monitoramento/
 
 ## 📞 Contato
 
-👤 **Vinicius Sousa Fernandes**
+👤 **Vinicius Sousa Fernandes** & **Rafael Guerra de Oliveira**
 
-📧 Email: vinifernandes2005@gmail.com
+📧 Email: vinifernandes2005@gmail.com & rafael.g.oliveira@aln.senaicimatec.edu.br
 
-💼 LinkedIn: https://linkedin.com/in/viniciussousaf
+💼 LinkedIn: https://linkedin.com/in/viniciussousaf & https://linkedin.com/in/rafael-guerra-de-oliveira
 
-💻 GitHub: https://github.com/Vinifernandes05
+💻 GitHub: https://github.com/Vinifernandes05 & https://github.com/rafaelguerradev
