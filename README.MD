@@ -1,211 +1,191 @@
-# Sistema IoT de Monitoramento de Pintura de Blocos de Madeira
+# 🌐📡 Sistema IoT de Monitoramento de Pintura de Blocos de Madeira
 
-Projeto desenvolvido no **SENAI CiMATEC** para a disciplina de Práticas Integradas – Camada de Serviço (AV2).
+## 📌 Sobre o Projeto
 
-Sistema IoT que monitora o processo de pintura de blocos de madeira em um ambiente simulado de chão de fábrica, utilizando dois ESP32 que se comunicam via **ESP-NOW**, com dados armazenados no **Supabase** e visualizados em dashboard em tempo real.
+Este projeto consiste no desenvolvimento de uma solução completa de **Internet das Coisas (IoT)** para monitoramento do processo de pintura de blocos de madeira em um ambiente simulado de chão de fábrica.
+
+A arquitetura foi construída utilizando **dois ESP32**, responsáveis pela coleta e transmissão das informações através do protocolo **ESP-NOW**, permitindo o monitoramento em tempo real de variáveis como:
+
+- Nível de tinta
+- Temperatura
+- Umidade
+- Luminosidade
+- Presença
+
+Os dados são enviados para o **Supabase**, onde permanecem armazenados para consultas históricas e visualização através de um **Dashboard Web**.
+
+Além do desenvolvimento dos firmwares embarcados, o projeto contempla documentação técnica completa, banco de dados, arquitetura do sistema e organização do código utilizando Git e GitHub.
+
+🔗 **Dashboard do Projeto:**  
+https://readings-radiant-view.lovable.app/
 
 ---
 
-## Estrutura do Repositório
+# 🎯 Objetivos do Projeto
 
+- Desenvolver uma solução completa de Internet das Coisas (IoT)
+- Integrar hardware e software
+- Aplicar comunicação entre microcontroladores utilizando ESP-NOW
+- Desenvolver firmware para ESP32
+- Armazenar dados em banco de dados na nuvem
+- Desenvolver Dashboard para monitoramento em tempo real
+- Trabalhar com APIs REST
+
+---
+
+# 🚀 Tecnologias Utilizadas
+
+## 🔹 Hardware
+
+- ESP32-S3-WROOM-1
+- ESP32-WROOM-32
+- HC-SR04
+- DHT22
+- Sensor PIR
+- LDR
+- LEDs
+
+---
+
+## 🔹 Firmware
+
+- C++
+- Arduino IDE
+- ESP-NOW
+
+---
+
+## 🔹 Banco de Dados
+
+- Supabase
+
+---
+
+## 🔹 Dashboard
+
+- Lovable IA
+- HTML
+- CSS
+- TypeScript
+
+---
+
+## 🔹 Outros
+
+- Git
+- GitHub
+- HTTPS
+- REST API
+
+---
+
+# ⚙️ Funcionalidades
+
+✔️ Coleta automática das informações dos sensores
+
+✔️ Comunicação entre dois ESP32 utilizando ESP-NOW
+
+✔️ Monitoramento do nível de tinta
+
+✔️ Monitoramento de temperatura
+
+✔️ Monitoramento da umidade
+
+✔️ Monitoramento da luminosidade
+
+✔️ Monitoramento de presença
+
+✔️ Persistência das leituras no Supabase
+
+✔️ Dashboard Web em tempo real
+
+✔️ Histórico completo das leituras
+
+✔️ Indicadores estatísticos
+
+✔️ Gráficos históricos
+
+✔️ Atualização automática dos dados
+
+---
+
+# 🏗️ Arquitetura do Sistema
+
+```text
+[Sensores]
+      │
+      ▼
+ESP32-S3 (Chão de Fábrica)
+      │
+   ESP-NOW
+      │
+      ▼
+ESP32-WROOM-32 (Monitoramento)
+      │
+ HTTPS / REST API
+      │
+      ▼
+   Supabase
+      │
+      ▼
+Dashboard Web
 ```
+
+---
+
+# 📂 Estrutura do Projeto
+
+```text
 iot-sistema-pintura/
 ├── chao_de_fabrica/
-│   └── chao_de_fabrica.ino      # Firmware ESP32-S3 (sensores + envio ESP-NOW)
+│   └── chao_de_fabrica.ino      # Firmware ESP32-S3 (Sensores + ESP-NOW)
+│
 ├── monitoramento/
-│   └── monitoramento.ino        # Firmware ESP32-WROOM-32 (recepção + Supabase)
+│   └── monitoramento.ino        # Firmware ESP32-WROOM-32 (Recepção + Supabase)
+│
 ├── banco_de_dados/
-│   └── criar_tabela.sql         # SQL para criar tabela no Supabase
+│   └── criar_tabela.sql         # Script SQL para criação da tabela
+│
 ├── docs/
 │   ├── montagem.md              # Guia de montagem dos circuitos
 │   └── supabase.md              # Configuração do banco de dados
+│
 └── README.md
 ```
 
 ---
 
-## 🏗️ Arquitetura do Sistema
+# 🔌 Componentes Utilizados
 
-```
-[Sensores] ──► [ESP32-S3 Chão de Fábrica]
-                        │
-                    ESP-NOW
-                        │
-               [ESP32-WROOM-32 Monitoramento]
-                        │
-                  HTTPS / REST
-                        │
-                   [Supabase]
-                        │
-                  [Dashboard Lovable]
-```
-
----
-
-## Componentes
-
-### ESP32-S3-WROOM-1 — Chão de Fábrica
+## ESP32-S3-WROOM-1 — Chão de Fábrica
 
 | Componente | Pino | Função |
-|---|---|---|
+|------------|------|---------|
 | HC-SR04 TRIG | GPIO 10 | Pulso de disparo do ultrassônico |
 | HC-SR04 ECHO | GPIO 9 | Recepção do eco (usar divisor de tensão se 5V) |
-| DHT22 DATA | GPIO 16 | Temperatura e umidade |
+| DHT22 DATA | GPIO 16 | Temperatura e Umidade |
 | LDR | GPIO 7 | Luminosidade (ADC1_CH6) |
 | PIR OUT | GPIO 13 | Detecção de presença |
 | LED Verde | GPIO 2 | Operação normal |
 | LED Vermelho | GPIO 4 | Alerta (nível < 20%) |
 
-### ESP32-WROOM-32 — Monitoramento
+---
+
+## ESP32-WROOM-32 — Monitoramento
 
 | Componente | Pino | Função |
-|---|---|---|
+|------------|------|---------|
 | LED Verde | GPIO 2 | Comunicação ESP-NOW OK |
 | LED Vermelho | GPIO 4 | Timeout (sem dados por 5 s) |
 
 ---
 
-## Como Montar o Projeto
+# 📞 Contato
 
-Consulte o guia completo em [`docs/montagem.md`](docs/montagem.md).
+👤 **Vinicius Sousa Fernandes**
 
-**Resumo:**
-1. Monte o circuito do chão de fábrica conforme a tabela de pinos acima
-2. Ligação do LDR: `3.3V ──[LDR]── GPIO7 ──[10kΩ]── GND`
-3. PIR: VCC no 5V, GND no GND, OUT no GPIO 13
-4. HC-SR04: se o módulo for 5V, use divisor de tensão no pino ECHO
-5. Monte o circuito do monitoramento (apenas dois LEDs)
+📧 Email: vinifernandes2005@gmail.com
 
----
+💼 LinkedIn: https://linkedin.com/in/viniciussousaf
 
-## Como Gravar os Firmwares
-
-### Pré-requisitos
-
-- Arduino IDE 2.x
-- Pacote ESP32 da Espressif (versão ≥ 3.x)
-
-### Bibliotecas (instalar pelo Library Manager)
-
-| Biblioteca | Autor | Para qual ESP32 |
-|---|---|---|
-| DHT sensor library for ESPx | beegee-tokyo | Chão de fábrica |
-
-### Configurações da Board
-
-**Chão de fábrica (ESP32-S3-WROOM-1):**
-- Board: `ESP32S3 Dev Module`
-- Flash Size: `16MB`
-- USB CDC On Boot: `Disabled`
-
-**Monitoramento (ESP32-WROOM-32):**
-- Board: `ESP32-WROOM-DA Module` ou `ESP32 Dev Module`
-- Upload Speed: `921600`
-
-### Ordem de gravação
-
-1. Grave `monitoramento.ino` no ESP32-WROOM-32
-2. Abra o Monitor Serial (115200) → copie o MAC exibido em `[WiFi] MAC deste ESP32: XX:XX:XX:XX:XX:XX`
-3. Cole esse MAC no campo `MAC_MONITORAMENTO` em `chao_de_fabrica.ino`
-4. Grave `chao_de_fabrica.ino` no ESP32-S3
-
-### Variáveis a preencher antes de gravar
-
-**`chao_de_fabrica.ino`:**
-```cpp
-const char* WIFI_SSID = "SEU_WIFI";
-const char* WIFI_PASS = "SUA_SENHA";
-uint8_t MAC_MONITORAMENTO[6] = {0xXX, 0xXX, 0xXX, 0xXX, 0xXX, 0xXX};
-```
-
-**`monitoramento.ino`:**
-```cpp
-const char* WIFI_SSID    = "SEU_WIFI";
-const char* WIFI_PASS    = "SUA_SENHA";
-const char* SUPABASE_URL = "https://SEU_PROJETO.supabase.co/rest/v1/leituras";
-const char* SUPABASE_KEY = "SUA_ANON_KEY";
-```
-
----
-
-## Como Configurar o Banco de Dados
-
-Consulte o guia completo em [`docs/supabase.md`](docs/supabase.md).
-
-**Resumo:**
-1. Crie um projeto em [supabase.com](https://supabase.com)
-2. Acesse **SQL Editor → New Query**
-3. Cole e execute o conteúdo de `banco_de_dados/criar_tabela.sql`
-4. Em **Settings → API**, copie a Project URL e a anon key
-
----
-
-## Como Consultar os Dados Salvos
-
-**Via Supabase Table Editor:**
-- Acesse seu projeto → **Table Editor → leituras**
-
-**Via SQL (Supabase SQL Editor):**
-```sql
--- Últimas 20 leituras
-SELECT * FROM leituras ORDER BY criado_em DESC LIMIT 20;
-
--- Média de temperatura das últimas 24h
-SELECT AVG(temperatura) FROM leituras
-WHERE criado_em > NOW() - INTERVAL '24 hours';
-
--- Alertas de nível baixo
-SELECT * FROM leituras
-WHERE nivel_tinta < 20
-ORDER BY criado_em DESC;
-```
-
-**Via API REST:**
-```bash
-curl "https://SEU_PROJETO.supabase.co/rest/v1/leituras?order=criado_em.desc&limit=10" \
-  -H "apikey: SUA_ANON_KEY"
-```
-
-**Via Dashboard:**
-- Acesse o dashboard criado no Lovable para visualização em tempo real: https://readings-radiant-view.lovable.app/
-
----
-
-## Estrutura do Pacote ESP-NOW
-
-Enviado a cada 2 segundos do chão de fábrica para o monitoramento:
-
-```cpp
-typedef struct {
-  float   nivel_tinta;      // % do tanque (0–100)
-  float   temperatura;      // °C
-  float   umidade;          // %
-  int32_t luminosidade;     // ADC 0–4095
-  uint8_t presenca;         // 0 = ausente, 1 = detectada
-  char    timestamp[24];    // "HH:MM:SS" relativo ao boot
-} DadosSensores;
-```
-
----
-
-## Avaliação
-
-| Etapa | Descrição | Pontos |
-|---|---|---|
-| 01 | ESP32 Chão de Fábrica | 2,0 |
-| 02 | ESP32 Monitoramento | 2,0 |
-| 03 | Banco de Dados e Dashboard | 2,0 |
-| 04 | GitHub | 2,0 |
-| 05 | Apresentação oral | 2,0 |
-| | **Total** | **10,0** |
-
----
-
-## Referências
-
-- [Arduino IDE](https://www.arduino.cc/en/software)
-- [Espressif ESP32 Technical Reference](https://www.espressif.com/en/products/socs/esp32-s3)
-- [Supabase Documentation](https://supabase.com/docs)
-- [Random Nerd Tutorials – ESP-NOW](https://randomnerdtutorials.com/esp-now-esp32-arduino-ide/)
-
----
+💻 GitHub: https://github.com/Vinifernandes05
