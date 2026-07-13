@@ -20,7 +20,7 @@ Além do desenvolvimento dos firmwares embarcados, o projeto contempla documenta
 
 ---
 
-# 🎯 Objetivos do Projeto
+## 🎯 Objetivos do Projeto
 
 - Desenvolver uma solução completa de Internet das Coisas (IoT)
 - Integrar hardware e software
@@ -32,9 +32,9 @@ Além do desenvolvimento dos firmwares embarcados, o projeto contempla documenta
 
 ---
 
-# 🚀 Tecnologias Utilizadas
+## 🚀 Tecnologias Utilizadas
 
-## 🔹 Hardware
+### 🔹 Hardware
 
 - ESP32-S3-WROOM-1
 - ESP32-WROOM-32
@@ -46,7 +46,7 @@ Além do desenvolvimento dos firmwares embarcados, o projeto contempla documenta
 
 ---
 
-## 🔹 Firmware
+### 🔹 Firmware
 
 - C++
 - Arduino IDE
@@ -54,13 +54,13 @@ Além do desenvolvimento dos firmwares embarcados, o projeto contempla documenta
 
 ---
 
-## 🔹 Banco de Dados
+### 🔹 Banco de Dados
 
 - Supabase
 
 ---
 
-## 🔹 Dashboard
+### 🔹 Dashboard
 
 - Lovable IA
 - HTML
@@ -69,7 +69,7 @@ Além do desenvolvimento dos firmwares embarcados, o projeto contempla documenta
 
 ---
 
-## 🔹 Outros
+### 🔹 Outros
 
 - Git
 - GitHub
@@ -78,7 +78,7 @@ Além do desenvolvimento dos firmwares embarcados, o projeto contempla documenta
 
 ---
 
-# ⚙️ Funcionalidades
+## ⚙️ Funcionalidades
 
 ✔️ Coleta automática das informações dos sensores
 
@@ -108,7 +108,7 @@ Além do desenvolvimento dos firmwares embarcados, o projeto contempla documenta
 
 ---
 
-# 🏗️ Arquitetura do Sistema
+## 🏗️ Arquitetura do Sistema
 
 ```text
 [Sensores]
@@ -132,7 +132,7 @@ Dashboard Web
 
 ---
 
-# 📂 Estrutura do Projeto
+## 📂 Estrutura do Projeto
 
 ```text
 iot-sistema-pintura/
@@ -154,7 +154,7 @@ iot-sistema-pintura/
 
 ---
 
-# 🔌 Componentes Utilizados
+## 🔌 Componentes Utilizados
 
 ## ESP32-S3-WROOM-1 — Chão de Fábrica
 
@@ -179,7 +179,7 @@ iot-sistema-pintura/
 
 ---
 
-# 📞 Contato
+## 📞 Contato
 
 👤 **Vinicius Sousa Fernandes**
 
